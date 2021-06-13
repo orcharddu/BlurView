@@ -14,7 +14,6 @@ class MainActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
         setStatusBarNavigationBar()
         val appBar: AppBarLayout = findViewById(R.id.main_appbar)
         val toolbar: Toolbar = findViewById(R.id.main_toolbar)
@@ -27,11 +26,6 @@ class MainActivity : BaseActivity() {
 
         val button = findViewById<Button>(R.id.button)
         button.setOnClickListener {
-//            val lp = blurView.layoutParams
-//            lp.height -= 100
-//            blurView.layoutParams = lp
-
-
             val intent = Intent()
             intent.setClass(this, RecyclerViewActivity::class.java)
             startActivity(intent)

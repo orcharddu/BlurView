@@ -37,7 +37,7 @@ open class BaseActivity : AppCompatActivity() {
         }
     }
 
-    open fun getAppBarHeight(): Int {
+    fun getAppBarHeight(): Int {
         var height = 0
         val resourceId = resources.getIdentifier("status_bar_height", "dimen", "android")
         height += if (resourceId > 0) resources.getDimensionPixelSize(resourceId) else 0

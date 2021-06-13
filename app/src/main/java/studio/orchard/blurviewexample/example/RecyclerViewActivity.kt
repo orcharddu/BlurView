@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.appbar.AppBarLayout
 import studio.orchard.blurview.BlurView
 import studio.orchard.blurviewexample.BaseActivity
-import studio.orchard.blurviewexample.MainActivity
 import studio.orchard.blurviewexample.R
 
 class RecyclerViewActivity : BaseActivity() {
@@ -24,37 +23,27 @@ class RecyclerViewActivity : BaseActivity() {
         val appBar: AppBarLayout = findViewById(R.id.example_appbar)
         val toolbar: Toolbar = findViewById(R.id.example_toolbar)
         setSupportActionBar(toolbar)
-        val actionBar = supportActionBar
-        if (actionBar != null) {
-            actionBar.setHomeButtonEnabled(true)
-            actionBar.setDisplayHomeAsUpEnabled(true)
-
-        }
+        supportActionBar?.setHomeButtonEnabled(true)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         title = "RecyclerView Example"
 
-
-        val blurView = findViewById<BlurView>(R.id.example_blurview)
-        val targetView = findViewById<FrameLayout>(R.id.example_targetview)
-        blurView.setTarget(targetView).setBinding(appBar).setName("RecyclerViewActivity").enable()
-
-        var itemList : MutableList<String> = mutableListOf()
+        val itemList : MutableList<String> = mutableListOf()
         for(i in 0..100) {
             itemList.add(i.toString())
         }
-
         val recyclerView = findViewById<RecyclerView>(R.id.example_recyclerview)
         recyclerView.layoutManager = GridLayoutManager(this, 3)
         recyclerView.addItemDecoration(RecyclerViewAdapter.ItemDecoration(this, 3,10, getAppBarHeight()))
         recyclerView.itemAnimator = DefaultItemAnimator()
         val recyclerViewAdapter = RecyclerViewAdapter(itemList)
-        recyclerViewAdapter.onItemClickListener = {
-            view: View, i: Int ->
+        recyclerViewAdapter.onItemClickListener = { _: View, i: Int ->
             Toast.makeText(this, "selected: ${itemList[i]}", Toast.LENGTH_SHORT).show();
         }
-
         recyclerView.adapter = recyclerViewAdapter
 
-
+        val blurView = findViewById<BlurView>(R.id.example_blurview)
+        val targetView = findViewById<FrameLayout>(R.id.example_targetview)
+        blurView.setTarget(targetView).setBinding(appBar).setName("RecyclerViewActivity").enable()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

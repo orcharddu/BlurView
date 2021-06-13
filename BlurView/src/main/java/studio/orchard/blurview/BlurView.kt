@@ -21,8 +21,10 @@ class BlurView : View {
     private lateinit var binding: View
     private lateinit var blurProcess: BlurProcess
     private var mask: Drawable? = ColorDrawable(Color.parseColor("#C0FFFFFF"))
-    private var radius: Float = 30f
-    private var scaling: Float = 0.3f
+    private var radius = 30f
+    private var scaling = 0.3f
+    private var roundRectRadiusX = 0f
+    private var roundRectRadiusY = 0f
 
     constructor(_context: Context): super(_context) {
         this._context = _context
@@ -67,6 +69,15 @@ class BlurView : View {
         return this
     }
 
+    fun setRoundRectRadiusX(radius: Float): BlurView {
+        roundRectRadiusX = radius
+        return this
+    }
+
+    fun setRoundRectRadiusY(radius: Float): BlurView {
+        roundRectRadiusY = radius
+        return this
+    }
 
     fun enable() {
         if(!::target.isInitialized) throw IllegalArgumentException("Target view should be initialized")
@@ -79,21 +90,24 @@ class BlurView : View {
             lp.width = width
             lp.height = height
             layoutParams = lp
-//            // trigger "targetView.isDirty" in preDraw() since the
-//            target.postInvalidate()
-        }
 
+        }
         blurProcess = BlurProcess(target, this)
         blurProcess.name = name
         blurProcess.mask = mask
         blurProcess.scaling = scaling
         blurProcess.radius = radius
+        blurProcess.roundRectRadiusX = roundRectRadiusX
+        blurProcess.roundRectRadiusY = roundRectRadiusY
         viewTreeObserver.addOnPreDrawListener {
             blurProcess.preDraw()
         }
-
+        /*
+        target.addOnLayoutChangeListener { v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom ->
+            blurProcess.onTargetSizeChanged(v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom)
+        }
+        */
         enable = true
-
     }
 
     private inline fun bindingViewGlobalLayout(crossinline callback: (Int, Int) -> Unit) {
@@ -108,54 +122,40 @@ class BlurView : View {
     }
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
-        blurProcess.onSizeChanged(w, h, oldw, oldh)
+        blurProcess.onSizeChanged(w, h)
         target.invalidate()
         super.onSizeChanged(w, h, oldw, oldh)
     }
 
-
-
     override fun onDraw(canvas: Canvas) {
-//        if (!isDrawCanvas()) {
-            if (enable) {
-
-                blurProcess.draw(canvas)
-                super.onDraw(canvas)
-                return
-            } else {
-                mask?.setBounds(0, 0, width, height)
-                mask?.draw(canvas)
-            }
+        if(enable) {
+            blurProcess.draw(canvas)
             super.onDraw(canvas)
-
+            return
+        } else {
+            mask?.setBounds(0, 0, width, height)
+            mask?.draw(canvas)
+        }
+        super.onDraw(canvas)
     }
 
     override fun onAttachedToWindow() {
+        blurProcess.isAttached = true
         super.onAttachedToWindow()
     }
 
     override fun onDetachedFromWindow() {
+        blurProcess.isAttached = false
         super.onDetachedFromWindow()
     }
 
-    fun isDrawCanvas(): Boolean {
-        return blurProcess.isDrawCanvas
-    }
-
     override fun draw(canvas: Canvas?) {
-        if (isDrawCanvas()) {
-            blurProcess.clear()
-        } else {
-            super.draw(canvas)
-        }
+        super.draw(canvas)
     }
 
     override fun dispatchDraw(canvas: Canvas?) {
-        if (!isDrawCanvas()) {
-            super.dispatchDraw(canvas)
-        }
+        super.dispatchDraw(canvas)
     }
-
 }
 
 
