@@ -38,29 +38,39 @@ class BlurView : View {
         this._context = _context
     }
 
+    // unchangeable after enable
 
     fun setTarget(target: View): BlurView {
+        if(enable) return this
         this.target = target
         return this
     }
 
     fun setBinding(binding: View): BlurView {
+        if(enable) return this
         this.binding = binding
         return this
     }
 
+    fun setScaling(scaling: Float): BlurView {
+        if(enable) return this
+        this.scaling = scaling
+        return this
+    }
+
+    // changeable after enable
+
     fun setMask(mask: Drawable?): BlurView {
         this.mask = mask
+        blurProcess?.mask = mask
+        target?.invalidate()
         return this
     }
 
     fun setRadius(radius: Float): BlurView {
         this.radius = radius
-        return this
-    }
-
-    fun setScaling(scaling: Float): BlurView {
-        this.scaling = scaling
+        blurProcess?.radius = radius
+        target?.invalidate()
         return this
     }
 
@@ -71,16 +81,21 @@ class BlurView : View {
 
     fun setName(str: String): BlurView {
         name = str
+        blurProcess?.name = str
         return this
     }
 
     fun setRoundRectRadiusX(radius: Float): BlurView {
         roundRectRadiusX = radius
+        blurProcess?.roundRectRadiusX = radius
+        target?.invalidate()
         return this
     }
 
     fun setRoundRectRadiusY(radius: Float): BlurView {
         roundRectRadiusY = radius
+        blurProcess?.roundRectRadiusY = radius
+        target?.invalidate()
         return this
     }
 
