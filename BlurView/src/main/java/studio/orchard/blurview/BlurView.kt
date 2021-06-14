@@ -16,15 +16,22 @@ import android.view.ViewTreeObserver
 class BlurView : View {
     private val _context: Context
     private var enable = false
-    var name = "Default"
     private var target: View? = null
     private var binding: View? = null
     private var blurProcess: BlurProcess? = null
-    private var mask: Drawable? = ColorDrawable(Color.parseColor("#C0FFFFFF"))
-    private var radius = 30f
-    private var scaling = 0.3f
-    private var roundRectRadiusX = 0f
-    private var roundRectRadiusY = 0f
+    var name = "Default"
+    var mask: Drawable? = ColorDrawable(Color.parseColor("#C0FFFFFF"))
+        private set
+    var opacity = 1f
+        private set
+    var radius = 30f
+        private set
+    var scaling = 0.3f
+        private set
+    var roundRectRadiusX = 0f
+        private set
+    var roundRectRadiusY = 0f
+        private set
 
     constructor(_context: Context): super(_context) {
         this._context = _context
@@ -75,6 +82,7 @@ class BlurView : View {
     }
 
     fun setOpacity(alpha: Float): BlurView {
+        this.opacity = alpha
         super.setAlpha(alpha)
         return this
     }

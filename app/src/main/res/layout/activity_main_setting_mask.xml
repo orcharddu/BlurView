@@ -1,0 +1,141 @@
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <TextView
+        android:id="@+id/main_setting_mask"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:textStyle="bold"
+        android:textSize="17dp"
+        android:text="MASK COLOR" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/main_setting_mask_a"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="40dp"
+
+            android:textSize="15dp"
+            android:text="A" />
+
+        <SeekBar
+            android:id="@+id/main_setting_mask_seekbar_a"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="0dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="10dp"
+            android:elevation="10dp"
+            android:max="255"
+            android:progress="255"
+            android:progressTint="@color/color_accent_light"
+            android:thumb="@drawable/ic_seekbar"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/main_setting_mask_r"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="40dp"
+            android:textSize="15dp"
+            android:text="R" />
+
+        <SeekBar
+            android:id="@+id/main_setting_mask_seekbar_r"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="0dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="10dp"
+            android:elevation="10dp"
+            android:max="255"
+            android:progress="255"
+            android:progressTint="@color/color_accent_light"
+            android:thumb="@drawable/ic_seekbar"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/main_setting_mask_g"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="40dp"
+            android:textSize="15dp"
+            android:text="G" />
+
+        <SeekBar
+            android:id="@+id/main_setting_mask_seekbar_g"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="0dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="10dp"
+            android:elevation="10dp"
+            android:max="255"
+            android:progress="255"
+            android:progressTint="@color/color_accent_light"
+            android:thumb="@drawable/ic_seekbar"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/main_setting_mask_b"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="40dp"
+            android:textSize="15dp"
+            android:text="B" />
+
+        <SeekBar
+            android:id="@+id/main_setting_mask_seekbar_b"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="0dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="10dp"
+            android:elevation="10dp"
+            android:max="255"
+            android:progress="255"
+            android:progressTint="@color/color_accent_light"
+            android:thumb="@drawable/ic_seekbar"/>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="#4D5A5A5A" />
+</LinearLayout>

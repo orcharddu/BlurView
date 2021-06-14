@@ -1,0 +1,37 @@
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <TextView
+        android:id="@+id/main_setting_radius"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:textStyle="bold"
+        android:textSize="17dp"
+        android:text="BLUR RADIUS" />
+    <SeekBar
+        android:id="@+id/main_setting_radius_seekbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:max="80"
+        android:progress="30"
+        android:progressTint="@color/color_accent_light"
+        android:thumb="@drawable/ic_seekbar"
+        android:elevation="10dp"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="#4D5A5A5A" />
+
+
+</LinearLayout>
