@@ -24,12 +24,20 @@ class MainActivity : BaseActivity() {
         val targetView = findViewById<FrameLayout>(R.id.main_targetview)
         blurView.setTarget(targetView).setBinding(targetView).setName("MainActivity").enable()
 
-        val button = findViewById<Button>(R.id.button)
-        button.setOnClickListener {
+        val button_1 = findViewById<Button>(R.id.main_button_1)
+        button_1.setOnClickListener {
             val intent = Intent()
             intent.setClass(this, RecyclerViewActivity::class.java)
             startActivity(intent)
         }
+
+        val button_2 = findViewById<Button>(R.id.main_button_2)
+        button_2.setOnClickListener {
+            val intent = Intent()
+            intent.setClass(this, RecyclerViewActivity::class.java)
+            startActivity(intent)
+        }
+
     }
 
 }

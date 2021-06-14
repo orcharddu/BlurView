@@ -5,6 +5,7 @@ import android.graphics.*
 import android.graphics.drawable.Drawable
 import android.os.Handler
 import android.os.HandlerThread
+import android.util.Log
 import android.view.View
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
@@ -98,6 +99,9 @@ class BlurProcess(private val targetView: View, private val blurView: View) {
             }
         var executor: ExecutorService = Executors.newFixedThreadPool(threads)
             private set
+        init {
+            Log.d("TAG_", "hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii")
+        }
         fun process(bitmap: Bitmap, radius: Float): Bitmap? = StackBlur.blur(bitmap, radius, this)
     }
 

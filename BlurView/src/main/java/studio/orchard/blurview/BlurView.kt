@@ -17,9 +17,9 @@ class BlurView : View {
     private val _context: Context
     private var enable = false
     var name = "Default"
-    private lateinit var target: View
-    private lateinit var binding: View
-    private lateinit var blurProcess: BlurProcess
+    private var target: View? = null
+    private var binding: View? = null
+    private var blurProcess: BlurProcess? = null
     private var mask: Drawable? = ColorDrawable(Color.parseColor("#C0FFFFFF"))
     private var radius = 30f
     private var scaling = 0.3f
@@ -80,10 +80,10 @@ class BlurView : View {
     }
 
     fun enable() {
-        if(!::target.isInitialized) throw IllegalArgumentException("Target view should be initialized")
-        if(!::binding.isInitialized) throw IllegalArgumentException("Binding view should be initialized")
+        target?: throw IllegalArgumentException("Target view should be initialized")
+        binding?: throw IllegalArgumentException("Binding view should be initialized")
         // remove background of bindingView
-        binding.setBackgroundColor(Color.TRANSPARENT)
+        binding?.setBackgroundColor(Color.TRANSPARENT)
         // set blurView size by bindingView
         bindingViewGlobalLayout { width, height ->
             val lp = layoutParams
@@ -92,15 +92,15 @@ class BlurView : View {
             layoutParams = lp
 
         }
-        blurProcess = BlurProcess(target, this)
-        blurProcess.name = name
-        blurProcess.mask = mask
-        blurProcess.scaling = scaling
-        blurProcess.radius = radius
-        blurProcess.roundRectRadiusX = roundRectRadiusX
-        blurProcess.roundRectRadiusY = roundRectRadiusY
+        blurProcess = BlurProcess(target!!, this)
+        blurProcess?.name = name
+        blurProcess?.mask = mask
+        blurProcess?.scaling = scaling
+        blurProcess?.radius = radius
+        blurProcess?.roundRectRadiusX = roundRectRadiusX
+        blurProcess?.roundRectRadiusY = roundRectRadiusY
         viewTreeObserver.addOnPreDrawListener {
-            blurProcess.preDraw()
+            blurProcess!!.preDraw()
         }
         /*
         target.addOnLayoutChangeListener { v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom ->
@@ -111,10 +111,10 @@ class BlurView : View {
     }
 
     private inline fun bindingViewGlobalLayout(crossinline callback: (Int, Int) -> Unit) {
-        binding.viewTreeObserver.addOnGlobalLayoutListener (
+        binding?.viewTreeObserver?.addOnGlobalLayoutListener (
             object: ViewTreeObserver.OnGlobalLayoutListener {
                 override fun onGlobalLayout() {
-                    callback(binding.width, binding.height)
+                    callback(binding!!.width, binding!!.height)
                     viewTreeObserver.removeOnGlobalLayoutListener(this)
                 }
             }
@@ -122,14 +122,14 @@ class BlurView : View {
     }
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
-        blurProcess.onSizeChanged(w, h)
-        target.invalidate()
+        blurProcess?.onSizeChanged(w, h)
+        target?.invalidate()
         super.onSizeChanged(w, h, oldw, oldh)
     }
 
     override fun onDraw(canvas: Canvas) {
         if(enable) {
-            blurProcess.draw(canvas)
+            blurProcess?.draw(canvas)
             super.onDraw(canvas)
             return
         } else {
@@ -140,12 +140,12 @@ class BlurView : View {
     }
 
     override fun onAttachedToWindow() {
-        blurProcess.isAttached = true
+        blurProcess?.isAttached = true
         super.onAttachedToWindow()
     }
 
     override fun onDetachedFromWindow() {
-        blurProcess.isAttached = false
+        blurProcess?.isAttached = false
         super.onDetachedFromWindow()
     }
 

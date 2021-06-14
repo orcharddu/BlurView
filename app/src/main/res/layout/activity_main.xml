@@ -47,13 +47,21 @@
 
         </com.google.android.material.appbar.AppBarLayout>
         <Button
-            android:id="@+id/button"
+            android:id="@+id/main_button_1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:text="RecyclerView" />
+        <Button
+            android:id="@+id/main_button_2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:text="RecyclerView Background" />
     </LinearLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
