@@ -1,6 +1,8 @@
 package studio.orchard.blurviewexample
 
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.widget.Button
 import android.widget.FrameLayout
@@ -22,7 +24,17 @@ class MainActivity : BaseActivity() {
 
         val blurView = findViewById<BlurView>(R.id.main_blurview)
         val targetView = findViewById<FrameLayout>(R.id.main_targetview)
-        blurView.setTarget(targetView).setBinding(targetView).setName("MainActivity").enable()
+        blurView.setTarget(targetView).setBinding(targetView)
+            .setMask(ColorDrawable(Color.parseColor("#64B4B4B4")))
+            .setRadius(40f).setScaling(0.3f).setName("MainActivity").enable()
+
+        blurView.setTarget(targetView).setBinding(targetView)
+            .setMask(ColorDrawable(Color.parseColor("#64B4B4B4")))
+            .setRadius(100f).setScaling(0.3f).setName("MainActivity").setOpacity(0.8f).enable()
+
+
+
+
 
         val button_1 = findViewById<Button>(R.id.main_button_1)
         button_1.setOnClickListener {

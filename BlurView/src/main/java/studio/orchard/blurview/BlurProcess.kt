@@ -99,9 +99,7 @@ class BlurProcess(private val targetView: View, private val blurView: View) {
             }
         var executor: ExecutorService = Executors.newFixedThreadPool(threads)
             private set
-        init {
-            Log.d("TAG_", "hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii")
-        }
+
         fun process(bitmap: Bitmap, radius: Float): Bitmap? = StackBlur.blur(bitmap, radius, this)
     }
 

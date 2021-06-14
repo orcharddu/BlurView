@@ -64,6 +64,11 @@ class BlurView : View {
         return this
     }
 
+    fun setOpacity(alpha: Float): BlurView {
+        super.setAlpha(alpha)
+        return this
+    }
+
     fun setName(str: String): BlurView {
         name = str
         return this
@@ -80,6 +85,7 @@ class BlurView : View {
     }
 
     fun enable() {
+        if(enable) return
         target?: throw IllegalArgumentException("Target view should be initialized")
         binding?: throw IllegalArgumentException("Binding view should be initialized")
         // remove background of bindingView
@@ -90,7 +96,6 @@ class BlurView : View {
             lp.width = width
             lp.height = height
             layoutParams = lp
-
         }
         blurProcess = BlurProcess(target!!, this)
         blurProcess?.name = name
