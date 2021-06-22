@@ -4,6 +4,7 @@ package studio.orchard.blurview
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -11,6 +12,7 @@ import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.view.View
 import android.view.ViewTreeObserver
+import kotlin.math.roundToInt
 
 @SuppressLint("ViewConstructor")
 class BlurView : View {
@@ -20,13 +22,13 @@ class BlurView : View {
     private var binding: View? = null
     private var blurProcess: BlurProcess? = null
     var name = "Default"
-    var mask: Drawable? = ColorDrawable(Color.parseColor("#C0FFFFFF"))
+    var mask: Drawable? = defaultMask
         private set
-    var opacity = 1f
+    var opacity = defaultOpacity
         private set
-    var radius = 30f
+    var radius = defaultRadius
         private set
-    var scaling = 0.3f
+    var scaling = defaultScaling
         private set
     var roundRectRadiusX = 0f
         private set
@@ -44,6 +46,45 @@ class BlurView : View {
     constructor(_context: Context, _attr: AttributeSet, _i: Int): super(_context, _attr, _i) {
         this._context = _context
     }
+
+
+    companion object {
+        @JvmField public val defaultMask = ColorDrawable(Color.parseColor("#C0FFFFFF"))
+        @JvmField public val defaultRadius = 30f
+        @JvmField public val defaultScaling = 0.3f
+        @JvmField public val defaultOpacity = 1f
+
+        @JvmStatic
+        public fun process(bitmap: Bitmap): Bitmap {
+            return process(bitmap, defaultRadius, defaultScaling, defaultMask)
+        }
+
+        @JvmStatic
+        public fun process(bitmap: Bitmap, mask: Drawable?): Bitmap {
+            return process(bitmap, defaultRadius, defaultScaling, mask)
+        }
+
+        @JvmStatic
+        public fun process(bitmap: Bitmap, radius: Float, scaling: Float, mask: Drawable?): Bitmap {
+            return process(bitmap, radius, (bitmap.width * scaling).roundToInt(), (bitmap.height * scaling).roundToInt(), mask);
+        }
+
+        @JvmStatic
+        public fun process(bitmap: Bitmap, radius: Float, width: Int, height: Int, mask: Drawable?): Bitmap {
+            val canvas = Canvas()
+            var output = bitmap.copy(Bitmap.Config.ARGB_8888, true)
+            output = Bitmap.createScaledBitmap(output, width, height, false)
+            val blurredBitmap: Bitmap? = BlurProcess.ThreadsController.process(output, radius)
+            canvas.setBitmap(output)
+            canvas.drawBitmap(blurredBitmap!!, 0f, 0f, null)
+            mask?.setBounds(0, 0, output.width, output.height)
+            mask?.draw(canvas)
+            blurredBitmap.recycle()
+            return output
+        }
+
+    }
+
 
     // unchangeable after enable
 
@@ -130,11 +171,6 @@ class BlurView : View {
         viewTreeObserver.addOnPreDrawListener {
             blurProcess!!.preDraw()
         }
-        /*
-        target.addOnLayoutChangeListener { v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom ->
-            blurProcess.onTargetSizeChanged(v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom)
-        }
-        */
         enable = true
     }
 
@@ -184,6 +220,8 @@ class BlurView : View {
     override fun dispatchDraw(canvas: Canvas?) {
         super.dispatchDraw(canvas)
     }
+
+
 }
 
 
