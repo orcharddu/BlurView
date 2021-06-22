@@ -1,3 +1,0 @@
-rootProject.name = "BlurViewExample"
-include ':app'
-include ':BlurView'
